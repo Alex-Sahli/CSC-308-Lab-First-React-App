@@ -1,31 +1,29 @@
 // src/MyApp.jsx 
 import React, { useState } from "react";
-import Table from "./table";  
-import Form from "./Form"; 
+import Table from "./Table";
+import Form from "./Form";
 
-function MyApp() { 
-  const [characters, setCharacters] = useState([]); 
+function MyApp() {
+    const [characters, setCharacters] = useState([]);
 
-  function updateList(person) {
-    setCharacters([...characters, person]);
-  }
+    function updateList(person) {
+        setCharacters([...characters, person]);
+    }
 
-  function removeOneCharacter(index) { 
-    const updated = characters.filter((character, i) => { 
-      return i !== index; 
-    }); 
-    setCharacters(updated); 
-    } 
-  
-  return (
-    <div className="container">
-	<Table 
-       	characterData={characters} 
-	removeCharacter={removeOneCharacter} 
-	/>
-        <Form handleSubmit={updateList} />  	
-    </div>
-  );
+    function removeOneCharacter(index) {
+        const updated = characters.filter((character, i) => {
+            return i !== index;
+        });
+        setCharacters(updated);
+    }
+
+    return ( 
+        <div className = "container">
+          <Table characterData = { characters }
+          removeCharacter = { removeOneCharacter }/> 
+          <Form handleSubmit = { updateList }/>  	 
+        </div>
+    );
 }
 
-export default MyApp; // makes MyApp() available for import in other files 
+export default MyApp; // makes MyApp() available for import in other files

@@ -1,15 +1,15 @@
 {
-  "name": "csc-308-app",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
-  ,
-  "workspaces": [
-      "packages/*"
-  ]
+    "name": "csc-308-app",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1", 
+	"dev": "npm -w packages/react-frontend run dev"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "workspaces": [
+        "packages/*"
+    ]
 }
