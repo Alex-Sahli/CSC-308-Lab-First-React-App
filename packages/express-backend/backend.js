@@ -43,8 +43,12 @@ const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
 
 const addUser = (user) => {
-    users["users_list"].push(user);
-    return user;
+    const idUser = {
+        id: generateId(),
+        ...user
+    };
+    users["users_list"].push(idUser);
+    return idUser;
 };
 
 app.use(cors());
@@ -52,12 +56,19 @@ app.use(express.json());
 
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
-    addUser(userToAdd);
-    res.send();
+    const len = users["users_list"].length; // original length of user list 
+    const addedUser = addUser(userToAdd); // tries to add user to list 
+    const newLen = users["users_list"].length; // new length of user list 
+
+    if (len === newLen) { // list didn't get bigger, i.e. nothing was added 
+        res.sendStatus(200);
+    } else { // otherwise, success 
+        res.status(201).send(addedUser);
+    }
 });
 
 app.get("/users/:id", (req, res) => {
-    const id = req.params["id"]; //or req.params.id
+    const id = req.params["id"]; // or req.params.id — grabs the id value in the url and stores it as 'id' 
     let result = findUserById(id);
     if (result === undefined) {
         res.status(404).send("Resource not found.");
@@ -93,6 +104,11 @@ app.delete("/users/:id", (req, res) => {
         res.send(200);
     }
 });
+
+function generateId() {
+    const id = parseInt((Math.random() * 1000000)).toString(); // generates random 6-digit id 
+    return id;
+}
 
 
 

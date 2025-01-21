@@ -7,9 +7,18 @@ function MyApp() {
     const [characters, setCharacters] = useState([]);
 
     function updateList(person) {
-        postUser(person)
-        .then(() => setCharacters([...characters, person]))
-        .catch((error) => { 
+        postUser(person)  // sends POST request to add person to backend 
+        .then((response) => { 
+            if (response.status === 201) { 
+                response.json().then((newPerson) => {  // gets the updated person (with id) 
+                    setCharacters([...characters, newPerson]);  // adds updated person to frontend display, updating state 
+                }); 
+            } 
+            else { 
+                console.log("Failed to add user"); 
+            }
+        })
+        .catch((error) => {  // error checking 
             console.log(error); 
         })
     }
