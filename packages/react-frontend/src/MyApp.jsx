@@ -24,10 +24,25 @@ function MyApp() {
     }
 
     function removeOneCharacter(index) {
-        const updated = characters.filter((character, i) => {
-            return i !== index;
-        });
-        setCharacters(updated);
+        const personToRemove = characters[index]; 
+        const id = personToRemove.id; 
+        const promise = fetch(`Http://localhost:8000/users/${id}`, { 
+            method: "DELETE", 
+            headers: { 
+                "Content-Type": "application/json", 
+            }
+        }); 
+        promise.then((response) => { 
+            if (response.status === 204) { 
+                const updated = characters.filter((character, i) => {  // makes new list, removing the target user 
+                    return i !== index;
+                }); 
+                setCharacters(updated);  // updates old list with the new one 
+            }
+            else {  // if the user couldn't be deleted 
+                console.log("Failed to delete"); 
+            }
+        }); 
     }
 
     function fetchUsers() { 

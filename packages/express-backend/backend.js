@@ -101,12 +101,12 @@ app.delete("/users/:id", (req, res) => {
     if (len === newLen) { // list didn't get smaller, i.e. nothing was removed 
         res.status(404).send("Resource not found.");
     } else {
-        res.send(200);
+        res.send(204); // successful delete 
     }
 });
 
 function generateId() {
-    const id = parseInt((Math.random() * 1000000)).toString(); // generates random 6-digit id 
+    const id = parseInt((Math.random() * 1000000)).toString(); // generates random id up to 6 digits 
     return id;
 }
 
